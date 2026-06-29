@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zee Afrika | Premium African Flavors & Processing Systems</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    :root {
+      --green-deep: #1b6b2a;
+      --green-mid: #2d8a3e;
+      --green-light: #7dc441;
+      --orange: #e8521a;
+      --gold: #f5a623;
+      --cream: #fdf8f0;
+      --dark: #111a0f;
+      --text-muted: #5a6b55;
+      --radius: 16px;
+      --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body: 'Outfit', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 { font-family: var(--font-display); }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      padding: 1.2rem 0;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease, padding 0.4s ease;
+    }
+    .navbar.scrolled {
+      background: rgba(255,255,255,0.55);
+      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(27,107,42,0.1);
+      box-shadow: 0 4px 32px rgba(27,107,42,0.08);
+      padding: 0.65rem 0;
+    }
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      padding: 0.35rem 0.55rem;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 6px 18px rgba(17, 26, 15, 0.08);
+    }
+    .navbar-brand img {
+      height: 44px;
+      width: auto;
+      object-fit: contain;
+      transition: filter 0.4s, height 0.4s;
+    }
+    .navbar:not(.scrolled) .navbar-brand img { filter: none; }
+    .navbar.scrolled .navbar-brand img { filter: none; }
+
+    /* Logo wordmark fallback if image missing */
+    .brand-wordmark {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      color: #fff;
+      transition: color 0.4s;
+    }
+    .brand-wordmark span { color: var(--gold); }
+    .navbar.scrolled .brand-wordmark { color: var(--dark); }
+
+    .nav-link {
+      font-family: var(--font-body);
+      font-weight: 500;
+      color: rgba(255,255,255,0.9) !important;
+      padding: 0.4rem 1rem !important;
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+      position: relative;
+      transition: color 0.3s;
+    }
+    .navbar.scrolled .nav-link { color: var(--dark) !important; }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 50%; right: 50%;
+      height: 1.5px;
+      background: currentColor;
+      transition: left 0.3s, right 0.3s;
+      border-radius: 2px;
+    }
+    .nav-link:hover::after, .nav-link.active::after { left: 1rem; right: 1rem; }
+    .navbar:not(.scrolled) .navbar-toggler-icon { filter: brightness(10); }
+    .navbar:not(.scrolled) .navbar-toggler { border-color: rgba(255,255,255,0.3); }
+    .navbar:not(.scrolled) #cartBtn { color: #fff !important; }
+    .navbar.scrolled #cartBtn { color: var(--green-deep) !important; }
+    .btn-nav {
+      background: rgba(255,255,255,0.15);
+      color: #fff !important;
+      border-radius: 50px;
+      padding: 0.5rem 1.5rem !important;
+      font-weight: 600;
+      font-size: 0.88rem;
+      letter-spacing: 0.04em;
+      transition: all var(--transition);
+      border: 1.5px solid rgba(255,255,255,0.5);
+      backdrop-filter: blur(6px);
+    }
+    .navbar.scrolled .btn-nav {
+      background: var(--green-deep);
+      color: #fff !important;
+      border-color: var(--green-deep);
+    }
+    .btn-nav:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+    .btn-nav::after { display: none; }
+
+    /* ── HERO CAROUSEL ── */
+    .hero {
+      min-height: 0;
+      padding: 1.25rem 2rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      background: var(--cream);
+    }
+
+    /* Slides */
+    .hero-slides {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      display: none;
+    }
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1.1s cubic-bezier(0.4,0,0.2,1);
+      will-change: opacity;
+    }
+    .hero-slide.active { opacity: 1; }
+    .hero-slide .slide-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.06);
+      transition: transform 7s ease;
+    }
+    .hero-slide.active .slide-bg { transform: scale(1); }
+    .hero-slide .slide-overlay {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* Slide backgrounds */
+    .slide-1 .slide-bg { background-image: url('./images/rice_porridge_tigernut 300g.jpg'); }
+    .slide-1 .slide-overlay { background: linear-gradient(120deg, rgba(11,45,18,0.88) 0%, rgba(27,107,42,0.65) 55%, rgba(45,138,62,0.3) 100%); }
+    .slide-2 .slide-bg { background-image: url('./images/tray-dehydrator3.jpg'); }
+    .slide-2 .slide-overlay { background: linear-gradient(120deg, rgba(11,28,45,0.9) 0%, rgba(20,68,110,0.6) 55%, rgba(35,95,145,0.25) 100%); }
+    .slide-3 .slide-bg { background-image: url('./images/cashmint_twist-150ml.jpg'); }
+    .slide-3 .slide-overlay { background: linear-gradient(120deg, rgba(45,18,8,0.9) 0%, rgba(120,50,15,0.65) 55%, rgba(180,85,25,0.25) 100%); }
+    .slide-4 .slide-bg { background-image: url('./images/rice_porridge_mango 300g.jpg'); }
+    .slide-4 .slide-overlay { background: linear-gradient(120deg, rgba(12,40,16,0.88) 0%, rgba(30,95,45,0.65) 55%, rgba(50,140,70,0.25) 100%); }
+
+    /* Hero layout */
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      min-height: 78vh;
+      display: flex;
+      align-items: center;
+      padding-top: 48px;
+      padding-bottom: 3.5rem;
+      padding-left: 3rem;
+      padding-right: 3rem;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 34px;
+      border: 5px solid #fff;
+      box-shadow: 0 18px 52px rgba(0, 0, 0, 0.14);
+      margin: 0 auto;
+      max-width: calc(100% - 5rem);
+    }
+
+    .hero-visual {
+      width: 100%;
+      max-width: 420px;
+      margin-left: auto;
+      padding: 0.85rem;
+      border-radius: 28px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 18px 48px rgba(0,0,0,0.18);
+      backdrop-filter: blur(8px);
+    }
+    .hero-visual img {
+      display: block;
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      border-radius: 20px;
+      border: 4px solid #fff;
+    }
+    .hero-visual-caption {
+      margin-top: 0.8rem;
+      color: rgba(255,255,255,0.82);
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      letter-spacing: 0.02em;
+      text-align: center;
+    }
+
+    /* Hero badge */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50px;
+      padding: 0.4rem 1.1rem;
+      color: rgba(255,255,255,0.9);
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      margin-bottom: 1.6rem;
+      backdrop-filter: blur(8px);
+    }
+    .hero-badge .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green-light);
+      animation: dotPulse 2s infinite;
+    }
+    @keyframes dotPulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50% { opacity:0.5; transform:scale(1.4); }
+    }
+    .hero-badge-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.7rem;
+      border-radius: 50px;
+      margin-left: 0.3rem;
+      background: var(--gold);
+      color: var(--dark);
+    }
+
+    /* Hero heading */
+    .hero-eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.7s 0.1s, transform 0.7s 0.1s;
+    }
+    .hero-slide.active ~ .hero-inner .hero-eyebrow,
+    .hero-inner.loaded .hero-eyebrow {
+      opacity: 1;
+      transform: none;
+    }
+
+    .hero-h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 6.5vw, 6.2rem);
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.6rem;
+    }
+    .hero-h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero-h1 .line-block {
+      display: block;
+      overflow: hidden;
+    }
+    .hero-h1 .line-inner {
+      display: block;
+      transform: translateY(110%);
+      transition: transform 0.85s cubic-bezier(0.16,1,0.3,1);
+    }
+    .hero-content-active .hero-h1 .line-inner {
+      transform: translateY(0);
+    }
+    .hero-h1 .line-inner:nth-child(1) { transition-delay: 0.05s; }
+    .hero-h1 .line-inner:nth-child(2) { transition-delay: 0.15s; }
+    .hero-h1 .line-inner:nth-child(3) { transition-delay: 0.25s; }
+
+    .hero-desc {
+      font-family: var(--font-body);
+      color: rgba(255,255,255,0.75);
+      font-size: 1.08rem;
+      font-weight: 300;
+      max-width: 480px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s 0.5s, transform 0.8s 0.5s;
+    }
+    .hero-content-active .hero-desc { opacity: 1; transform: none; }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s 0.65s, transform 0.8s 0.65s;
+    }
+    .hero-content-active .hero-ctas { opacity: 1; transform: none; }
+
+    .btn-hero-primary {
+      background: #fff;
+      color: var(--dark);
+      border: none;
+      border-radius: 50px;
+      padding: 0.95rem 2.8rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2);
+    }
+    .btn-hero-primary:hover {
+      background: #f5f5f5;
+      transform: translateY(-3px);
+      box-shadow: 0 14px 36px rgba(245,166,35,0.45);
+      color: var(--dark);
+    }
+    .btn-hero-secondary {
+      background: transparent;
+      color: #fff;
+      border: 1.5px solid rgba(255,255,255,0.45);
+      border-radius: 4px;
+      padding: 0.9rem 2.2rem;
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-hero-secondary:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.8);
+      color: #fff;
+      transform: translateY(-3px);
+    }
+
+    /* Stats row */
+    .hero-stats {
+      display: flex;
+      gap: 0;
+      margin-top: 3.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s 0.8s, transform 0.8s 0.8s;
+    }
+    .hero-content-active .hero-stats { opacity: 1; transform: none; }
+    .hero-stat {
+      padding: 0 2rem 0 0;
+      border-right: 1px solid rgba(255,255,255,0.15);
+      margin-right: 2rem;
+    }
+    .hero-stat:last-child { border-right: none; margin-right: 0; }
+    .hero-stat-num {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .hero-stat-label {
+      font-family: var(--font-body);
+      color: rgba(255,255,255,0.55);
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* Right side image card */
+    .hero-product-card {
+      background: linear-gradient(135deg, rgba(27,107,42,0.7), rgba(45,138,62,0.5)), url('./images/rice_porridge_tigernut 300g.jpg');
+      background-size: cover;
+      background-position: center;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 20px;
+      backdrop-filter: blur(16px);
+      padding: 1.2rem;
+      max-width: 340px;
+      width: 100%;
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.9s 0.4s, transform 0.9s 0.4s;
+    }
+    .hero-content-active .hero-product-card { opacity: 1; transform: none; }
+    .hero-product-card .card-img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 1.1rem;
+    }
+    .hero-product-card .card-tag {
+      font-size: 0.73rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+    .hero-product-card .card-name {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .hero-product-card .card-price {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 0.9rem;
+    }
+    .hero-product-card .card-desc {
+      font-size: 0.83rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+    .btn-card-add {
+      width: 100%;
+      background: var(--gold);
+      color: var(--dark);
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem;
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-card-add:hover { background: #ffc140; transform: translateY(-2px); }
+
+    /* Slide dots + arrows */
+    .hero-controls {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+    .slide-dots {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .slide-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+    }
+    .slide-dot.active {
+      width: 24px;
+      border-radius: 3px;
+      background: var(--gold);
+    }
+    .slide-arrow {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+      backdrop-filter: blur(6px);
+    }
+    .slide-arrow:hover {
+      background: rgba(255,255,255,0.2);
+      border-color: rgba(255,255,255,0.6);
+    }
+
+    /* Progress bar */
+    .hero-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      background: var(--gold);
+      z-index: 10;
+      width: 0%;
+      transition: width 0s linear;
+    }
+    .hero-progress.animating {
+      width: 100%;
+      transition: width 5s linear;
+    }
+
+    /* Side vertical label */
+    .hero-side-label {
+      position: absolute;
+      right: 2.5rem;
+      top: 50%;
+      transform: translateY(-50%) rotate(90deg);
+      z-index: 10;
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .hero-side-label::before {
+      content: '';
+      width: 30px;
+      height: 1px;
+      background: rgba(255,255,255,0.3);
+    }
+
+    /* Slide counter */
+    .hero-counter {
+      position: absolute;
+      left: 2rem;
+      bottom: 2.5rem;
+      z-index: 10;
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.5);
+    }
+    .hero-counter .current {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    /*  MARQUEE  */
+    .marquee-strip {
+      background: var(--green-deep);
+      padding: 0.9rem 0;
+      overflow: hidden;
+    }
+    .marquee-track {
+      display: flex;
+      gap: 3rem;
+      white-space: nowrap;
+      animation: marquee 22s linear infinite;
+    }
+    .marquee-item {
+      color: rgba(255,255,255,0.85);
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-shrink: 0;
+    }
+    .marquee-item i { color: var(--gold); }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* SHIPPING FEATURES  */
+    .ecom-features-section { background: #fff; padding: 5rem 0; }
+    .ecom-features-section .section-label {
+      display: inline-block;
+      background: rgba(27,107,42,0.08);
+      color: var(--green-deep);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 0.35rem 1rem;
+      border-radius: 50px;
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+      color: var(--dark);
+      margin-bottom: 1rem;
+    }
+    .section-title span { color: var(--green-deep); }
+    .section-sub { color: var(--text-muted); font-size: 1.02rem; line-height: 1.7; }
+    .feature-list { display: grid; gap: 1rem; margin-top: 0.5rem; }
+    .feature-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .feature-item i { font-size: 1.5rem; color: var(--green-deep); min-width: 32px; }
+    .feature-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.15rem; }
+    .feature-desc { color: var(--text-muted); font-size: 0.88rem; }
+    .feature-card {
+      display: flex; gap: 0.9rem; align-items: center;
+      padding: 1rem 1.1rem;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(245,245,243,0.7),#fff);
+      box-shadow: 0 4px 16px rgba(17,26,15,0.04);
+    }
+    .feature-card i { font-size: 1.4rem; color: var(--gold); }
+    .card-title { font-weight: 600; font-size: 0.92rem; }
+    .card-sub { color: var(--text-muted); font-size: 0.83rem; }
+
+    /* CATEGORIES */
+    .premium-categories { padding: 5rem 0; background: var(--cream); }
+    .category-header .sub-title {
+      font-family: var(--font-body);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.78rem;
+      color: var(--green-mid);
+      font-weight: 700;
+      display: block;
+    }
+    .category-header .main-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 2.6rem;
+      color: var(--dark);
+      margin-top: 5px;
+    }
+    .category-header .main-title span { color: var(--green-deep); }
+    .btn-view-all-premium {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 24px;
+      border: 1px solid rgba(27,107,42,0.2);
+      border-radius: 4px;
+      color: var(--green-deep);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.88rem;
+      letter-spacing: 0.04em;
+      transition: all var(--transition);
+    }
+    .btn-view-all-premium:hover {
+      background: var(--green-deep); color: var(--cream);
+      border-color: var(--green-deep); transform: translateY(-2px);
+    }
+    .categories-isometric-grid {
+      display: grid; grid-template-columns: repeat(1,1fr); gap: 20px;
+    }
+    @media(min-width:576px){ .categories-isometric-grid { grid-template-columns: repeat(2,1fr); } }
+    @media(min-width:992px){ .categories-isometric-grid { grid-template-columns: repeat(4,1fr); } }
+    .tilt-card-wrapper { perspective: 1000px; }
+    .tilt-card { background: transparent; border-radius: var(--radius); transition: transform 0.15s ease-out; transform-style: preserve-3d; will-change: transform; }
+    .card-image-box { position: relative; width: 100%; height: 320px; border-radius: var(--radius); overflow: hidden; box-shadow: 0 8px 28px rgba(17,26,15,0.07); transform: translateZ(20px); }
+    .card-image-box img {
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 8px;
+      transition: transform var(--transition);
+    }
+    .sliding-action-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(17,26,15,0.55) 0%, transparent 55%);
+      display: flex; align-items: flex-end; justify-content: center; padding-bottom: 22px;
+      opacity: 0; transform: translateY(12px);
+      transition: all var(--transition);
+    }
+    .action-btn-pill {
+      background: var(--cream); color: var(--green-deep);
+      padding: 10px 26px; border-radius: 4px;
+      font-weight: 600; font-size: 0.85rem; text-decoration: none;
+      transition: all var(--transition);
+      letter-spacing: 0.04em;
+    }
+    .action-btn-pill:hover { background: var(--gold); color: var(--dark); }
+    .card-meta-details { text-align: center; padding: 18px 10px 0; transform: translateZ(10px); }
+    .card-meta-details h3 { font-family: var(--font-body); font-size: 1.05rem; font-weight: 600; color: var(--dark); margin-bottom: 4px; transition: color var(--transition); }
+    .card-meta-details p { font-size: 0.84rem; color: var(--text-muted); margin: 0; }
+    .tilt-card-wrapper:hover .card-image-box img { transform: scale(1.07); }
+    .tilt-card-wrapper:hover .sliding-action-overlay { opacity: 1; transform: translateY(0); }
+    .tilt-card-wrapper:hover .card-meta-details h3 { color: var(--green-mid); }
+
+    /* ── PRODUCTS ── */
+    .products-section { background: var(--cream); padding: 5rem 0; }
+    .filter-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .filter-tab {
+      padding: 0.45rem 1.2rem; border-radius: 4px;
+      border: 1.5px solid rgba(27,107,42,0.2);
+      background: transparent; color: var(--text-muted);
+      font-weight: 500; font-size: 0.85rem; cursor: pointer; transition: all 0.3s;
+      font-family: var(--font-body);
+    }
+    .filter-tab:hover, .filter-tab.active { background: var(--green-deep); border-color: var(--green-deep); color: #fff; }
+    .product-card { background: #fff; border-radius: 16px; overflow: hidden; transition: all var(--transition); box-shadow: 0 2px 18px rgba(0,0,0,0.04); }
+    .product-card:hover { transform: translateY(-6px); box-shadow: 0 18px 48px rgba(27,107,42,0.11); }
+    .product-img-wrap { position: relative; height: 220px; overflow: hidden; }
+    .product-img-wrap img {
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      margin: 0 auto;
+      transition: transform 0.5s ease, opacity 0.3s ease;
+      background: #ffffff;
+      padding: 8px;
+    }
+    .product-img-wrap img.swapping { opacity: 0; transform: scale(1.04); }
+    .product-card:hover .product-img-wrap img { transform: scale(1.06); }
+    .product-badge { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--orange); color: #fff; font-size: 0.72rem; font-weight: 700; padding: 0.22rem 0.7rem; border-radius: 4px; letter-spacing: 0.04em; }
+    .product-wishlist { position: absolute; top: 0.8rem; right: 0.8rem; width: 32px; height: 32px; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; color: #ccc; transition: color 0.3s; }
+    .product-wishlist:hover, .product-wishlist.active { color: var(--orange); }
+    .product-body { padding: 1.1rem; }
+    .product-category { font-size: 0.73rem; color: var(--green-mid); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+    .product-name { font-family: var(--font-display); font-size: 1.08rem; margin-bottom: 0.4rem; color: var(--dark); }
+    .product-stars { color: var(--gold); font-size: 0.82rem; margin-bottom: 0.8rem; }
+    .product-stars span { color: var(--text-muted); font-size: 0.78rem; margin-left: 0.3rem; }
+    .variant-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 0.4rem; }
+    .variant-btns { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.8rem; }
+    .variant-btn { padding: 0.2rem 0.65rem; border-radius: 4px; border: 1.5px solid rgba(27,107,42,0.2); background: transparent; color: var(--text-muted); font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.25s; font-family: var(--font-body); line-height: 1.6; }
+    .variant-btn:hover { border-color: var(--green-mid); color: var(--green-mid); }
+    .variant-btn.active { background: var(--green-deep); border-color: var(--green-deep); color: #fff; }
+    .product-footer { display: flex; align-items: center; justify-content: space-between; }
+    .product-price { font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; color: var(--green-deep); }
+    .btn-add-cart { background: var(--green-deep); color: #fff; border: none; border-radius: 4px; padding: 0.45rem 1rem; font-size: 0.83rem; font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 0.4rem; font-family: var(--font-body); }
+    .btn-add-cart:hover { background: var(--green-mid); transform: translateY(-2px); }
+
+    /* BANNER */
+    .banner-section { background: linear-gradient(135deg, #0d3512 0%, #1b6b2a 100%); padding: 5rem 0; position: relative; overflow: hidden; }
+    .banner-section::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+    .banner-section h2 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); color: #fff; }
+    .banner-section h2 span { color: var(--gold); }
+    .banner-section p { color: rgba(255,255,255,0.7); font-size: 1rem; max-width: 540px; line-height: 1.75; }
+    .banner-feature { display: flex; align-items: flex-start; gap: 1rem; margin-top: 1.5rem; }
+    .banner-feature-icon { width: 46px; height: 46px; min-width: 46px; background: rgba(255,255,255,0.08); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--gold); }
+    .banner-feature h5 { color: #fff; font-size: 0.98rem; margin-bottom: 0.2rem; font-family: var(--font-body); font-weight: 600; }
+    .banner-feature p { color: rgba(255,255,255,0.55); font-size: 0.86rem; margin: 0; }
+
+    /*  TESTIMONIALS  */
+    .testimonials-section { background: #fff; padding: 5rem 0; }
+    .testimonial-card { background: var(--cream); border-radius: 16px; padding: 1.8rem; height: 100%; transition: all var(--transition); border: 1px solid transparent; }
+    .testimonial-card:hover { border-color: var(--green-light); transform: translateY(-4px); box-shadow: 0 14px 38px rgba(27,107,42,0.07); }
+    .testimonial-quote { font-family: var(--font-display); font-size: 3.5rem; line-height: 1; color: var(--green-light); margin-bottom: 0.4rem; }
+    .testimonial-text { color: var(--text-muted); line-height: 1.75; font-size: 0.95rem; margin-bottom: 1.4rem; }
+    .testimonial-author { display: flex; align-items: center; gap: 0.75rem; }
+    .testimonial-avatar { width: 42px; height: 42px; border-radius: 50%; background: var(--green-light); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 1rem; }
+    .testimonial-name { font-weight: 600; font-size: 0.92rem; color: var(--dark); }
+    .testimonial-location { font-size: 0.78rem; color: var(--text-muted); }
+    .testimonial-stars { color: var(--gold); font-size: 0.88rem; margin-bottom: 0.8rem; }
+
+    /*  STORY  */
+    .story-section { background: var(--cream); padding: 5rem 0; }
+    .story-img-wrap { position: relative; border-radius: 20px; overflow: hidden; height: 500px; }
+    .story-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .story-years-badge { position: absolute; bottom: 2rem; right: -16px; background: var(--gold); border-radius: 16px; padding: 1.1rem 1.6rem; box-shadow: 0 14px 36px rgba(245,166,35,0.35); text-align: center; }
+    .story-years-badge .num { font-family: var(--font-display); font-size: 2.6rem; font-weight: 900; color: var(--dark); line-height: 1; }
+    .story-years-badge .label { font-size: 0.82rem; font-weight: 600; color: rgba(17,26,15,0.65); }
+
+    /*  SOCIAL */
+    .insta-section { background: var(--dark); padding: 5rem 0; }
+    .insta-section .section-label { background: rgba(255,255,255,0.08); color: var(--green-light); display: inline-block; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; padding: 0.35rem 1rem; border-radius: 50px; margin-bottom: 1rem; }
+    .insta-section .section-title { color: #fff; font-family: var(--font-display); font-size: clamp(2rem,4vw,3rem); line-height: 1.2; }
+    .insta-section .section-title span { color: var(--gold); }
+    .insta-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+    .insta-item { aspect-ratio: 1; border-radius: 12px; overflow: hidden; cursor: pointer; position: relative; }
+    .insta-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+    .insta-item:hover img { transform: scale(1.1); }
+    .insta-overlay { position: absolute; inset: 0; background: rgba(27,107,42,0.55); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; color: #fff; font-size: 1.5rem; }
+    .insta-item:hover .insta-overlay { opacity: 1; }
+
+    /* NEWSLETTER */
+    .newsletter-section { background: linear-gradient(135deg, var(--orange) 0%, #c93f0a 100%); padding: 4.5rem 0; position: relative; overflow: hidden; }
+    .newsletter-section::after { content: '🌿'; position: absolute; font-size: 14rem; opacity: 0.07; right: -2rem; top: -2rem; transform: rotate(-20deg); }
+    .newsletter-section h2 { font-family: var(--font-display); font-size: clamp(1.8rem,3.5vw,2.8rem); color: #fff; }
+    .newsletter-section p { color: rgba(255,255,255,0.82); font-size: 1rem; }
+    .newsletter-form { display: flex; gap: 0; max-width: 480px; }
+    .newsletter-form input { flex: 1; border: none; border-radius: 4px 0 0 4px; padding: 0.85rem 1.4rem; font-size: 0.92rem; outline: none; font-family: var(--font-body); }
+    .newsletter-form button { background: var(--dark); color: #fff; border: none; border-radius: 0 4px 4px 0; padding: 0.85rem 1.8rem; font-weight: 700; cursor: pointer; font-family: var(--font-body); transition: background 0.3s; font-size: 0.88rem; letter-spacing: 0.04em; }
+    .newsletter-form button:hover { background: var(--green-deep); }
+
+    /*  FOOTER  */
+    footer { background: var(--dark); color: rgba(255,255,255,0.65); padding: 4rem 0 2rem; }
+    .footer-brand img { height: 46px; filter: brightness(10); margin-bottom: 1rem; }
+    .footer-brand p { font-size: 0.88rem; line-height: 1.72; max-width: 270px; }
+    .footer-social { display: flex; gap: 0.6rem; margin-top: 1.2rem; }
+    .footer-social a { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.55); font-size: 0.95rem; transition: all 0.3s; }
+    .footer-social a:hover { background: var(--green-deep); border-color: var(--green-deep); color: #fff; }
+    .footer-heading { color: #fff; font-size: 0.92rem; font-weight: 700; margin-bottom: 1.1rem; font-family: var(--font-body); letter-spacing: 0.04em; }
+    .footer-links { list-style: none; padding: 0; }
+    .footer-links li { margin-bottom: 0.55rem; }
+    .footer-links a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.88rem; transition: color 0.3s; }
+    .footer-links a:hover { color: var(--green-light); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.07); padding-top: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+    .footer-bottom p { font-size: 0.82rem; margin: 0; }
+
+    /* TOAST */
+    .toast-cart { position: fixed; bottom: 2rem; right: 2rem; background: var(--green-deep); color: #fff; border-radius: 12px; padding: 0.9rem 1.4rem; box-shadow: 0 10px 36px rgba(0,0,0,0.18); z-index: 9999; transform: translateY(100px); opacity: 0; transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1); display: flex; align-items: center; gap: 0.75rem; }
+    .toast-cart.show { transform: translateY(0); opacity: 1; }
+
+    /* BACK TO TOP  */
+    .back-to-top { position: fixed; bottom: 2rem; left: 2rem; width: 42px; height: 42px; background: var(--green-deep); color: #fff; border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; cursor: pointer; opacity: 0; transform: translateY(20px); transition: all 0.3s; z-index: 999; box-shadow: 0 4px 18px rgba(27,107,42,0.3); }
+    .back-to-top.visible { opacity: 1; transform: translateY(0); }
+    .back-to-top:hover { background: var(--green-mid); }
+
+    /* REVEAL  */
+    .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* Section shared */
+    section { padding: 5rem 0; }
+    .section-label { display: inline-block; background: rgba(27,107,42,0.08); color: var(--green-deep); font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; padding: 0.35rem 1rem; border-radius: 50px; margin-bottom: 1rem; }
+
+    @media(max-width:991px){
+      .hero-product-card { display: none; }
+      .hero-side-label { display: none; }
+      .hero-counter { display: none; }
+      .hero {
+        padding: 1rem 1.25rem 2rem;
+      }
+      .hero-visual {
+        max-width: 100%;
+      }
+      .hero-visual img {
+        height: 360px;
+      }
+      .hero-inner {
+        padding-left: 2rem;
+        padding-right: 2rem;
+        border-radius: 24px;
+        min-height: 68vh;
+        max-width: calc(100% - 2rem);
+      }
+    }
+    @media(max-width:768px){
+      .insta-grid { grid-template-columns: repeat(2,1fr); }
+      .newsletter-form { flex-direction: column; }
+      .newsletter-form input { border-radius: 4px; }
+      .newsletter-form button { border-radius: 4px; }
+      .story-years-badge { right: 1rem; }
+      .hero {
+        padding: 0.8rem 0.9rem 1.5rem;
+      }
+      .hero-inner {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        border-radius: 20px;
+        min-height: auto;
+        padding-top: 1.75rem;
+        padding-bottom: 2.25rem;
+        border-width: 3px;
+      }
+      .hero-visual img {
+        height: 260px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="#home">
+      <img src="./images/zee_afrika_logo.jpg" alt="Zee Afrika Logo"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+      <span class="brand-wordmark" style="display:none;">Zee <span>Afrika</span></span>
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto gap-1">
+        <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#categories">Categories</a></li>
+        <li class="nav-item"><a class="nav-link" href="./products.html">Products</a></li>
+        <li class="nav-item"><a class="nav-link" href="#story">About Us</a></li>
+      </ul>
+      <div class="d-flex gap-2 align-items-center">
+        <a href="./register.html" class="btn btn-nav">Register</a>
+        <button class="btn position-relative" style="font-size:1.2rem; color:var(--green-deep)" id="cartBtn" onclick="window.location='cart.html'">
+          <i class="bi bi-bag"></i>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cartCount" style="font-size:0.6rem; display:none;">0</span>
+        </button>
+        <a href="./products.html" class="btn btn-nav">Shop Now</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+
+  <!-- Slides -->
+  <div class="hero-slides">
+    <div class="hero-slide slide-1 active">
+      <div class="slide-bg"></div>
+      <div class="slide-overlay"></div>
+    </div>
+    <div class="hero-slide slide-2">
+      <div class="slide-bg"></div>
+      <div class="slide-overlay"></div>
+    </div>
+    <div class="hero-slide slide-3">
+      <div class="slide-bg"></div>
+      <div class="slide-overlay"></div>
+    </div>
+    <div class="hero-slide slide-4">
+      <div class="slide-bg"></div>
+      <div class="slide-overlay"></div>
+    </div>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="hero-progress" id="heroProgress"></div>
+
+  <!-- Side vertical label -->
+  <div class="hero-side-label">Zee Afrika GH</div>
+
+  <!-- Slide counter -->
+  <div class="hero-counter">
+    <span class="current" id="slideCurrentNum">01</span>
+    <span> / 04</span>
+  </div>
+
+  <!-- Main content -->
+  <div class="hero-inner" id="heroInner">
+    <div class="container">
+      <div class="row align-items-center g-5">
+
+        <!-- Left: text -->
+        <div class="col-lg-7" id="heroContent">
+          <div class="hero-badge">
+            <span class="dot"></span>
+            <span id="slideBadgeText">Empowering Ghanaian Food & Processing</span>
+            <span class="hero-badge-tag" id="slideBadgeTag">New</span>
+          </div>
+
+          <div class="hero-eyebrow" id="slideEyebrow">Premium Instant Nutrition</div>
+
+          <h1 class="hero-h1" id="heroH1">
+            <span class="line-block"><span class="line-inner" id="heroLine1">Taste the Purity</span></span>
+            <span class="line-block"><span class="line-inner" id="heroLine2">of <em>Africa,</em></span></span>
+            <span class="line-block"><span class="line-inner" id="heroLine3">Powered by Innovation</span></span>
+          </h1>
+
+          <p class="hero-desc" id="heroDesc">
+            Discover Zee Greens' premium, easy-to-prepare healthy food products alongside state-of-the-art agro-processing machinery built to scale your business.
+          </p>
+
+          <div class="hero-ctas">
+            <a href="#products" class="btn-hero-primary" id="heroCta1">
+              <i class="bi bi-bag-fill"></i> Shop Food Products
+            </a>
+            <a href="#products" class="btn-hero-secondary" id="heroCta2">
+              <i class="bi bi-gear"></i> Explore Equipment
+            </a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <div class="hero-stat-num" id="heroStat1Num">8+</div>
+              <div class="hero-stat-label" id="heroStat1Label">Food Products</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-num" id="heroStat2Num">Just Add</div>
+              <div class="hero-stat-label" id="heroStat2Label">Water Meals</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-num" id="heroStat3Num">Pre-Order</div>
+              <div class="hero-stat-label" id="heroStat3Label">Machinery</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: visual image -->
+        <div class="col-lg-5 d-flex justify-content-center justify-content-lg-end">
+          <div class="hero-visual" id="heroVisual">
+            <img id="heroVisualImg" src="./images/rice_porridge_mango 300g.jpg" alt="Zee Afrika product visual" />
+            <div class="hero-visual-caption" id="heroVisualCaption">Premium instant nutrition and processing visuals</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide controls -->
+  <div class="hero-controls">
+    <button class="slide-arrow" id="prevSlide" aria-label="Previous slide">
+      <i class="bi bi-chevron-left"></i>
+    </button>
+    <div class="slide-dots" id="slideDots">
+      <button class="slide-dot active" data-slide="0"></button>
+      <button class="slide-dot" data-slide="1"></button>
+      <button class="slide-dot" data-slide="2"></button>
+      <button class="slide-dot" data-slide="3"></button>
+    </div>
+    <button class="slide-arrow" id="nextSlide" aria-label="Next slide">
+      <i class="bi bi-chevron-right"></i>
+    </button>
+  </div>
+
+</section>
+
+<!-- MARQUEE-->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span class="marquee-item"><i class="bi bi-check-circle-fill"></i> Easy to Prepare Breakfasts</span>
+    <span class="marquee-item"><i class="bi bi-gear-fill"></i> High-Capacity Dehydrators</span>
+    <span class="marquee-item"><i class="bi bi-leaf"></i> 100% Nutritious & Natural</span>
+    <span class="marquee-item"><i class="bi bi-shield-check"></i> Quality Food Processing Machinery</span>
+    <span class="marquee-item"><i class="bi bi-lightning-charge"></i> Just Add Water and Enjoy</span>
+    <span class="marquee-item"><i class="bi bi-tools"></i> Pre-Order Equipment Available</span>
+    <span class="marquee-item"><i class="bi bi-check-circle-fill"></i> Easy to Prepare Breakfasts</span>
+    <span class="marquee-item"><i class="bi bi-gear-fill"></i> High-Capacity Dehydrators</span>
+    <span class="marquee-item"><i class="bi bi-leaf"></i> 100% Nutritious & Natural</span>
+    <span class="marquee-item"><i class="bi bi-shield-check"></i> Quality Food Processing Machinery</span>
+    <span class="marquee-item"><i class="bi bi-lightning-charge"></i> Just Add Water and Enjoy</span>
+    <span class="marquee-item"><i class="bi bi-tools"></i> Pre-Order Equipment Available</span>
+  </div>
+</div>
+
+<!-- SHIPPING-->
+<section class="ecom-features-section reveal" id="ecom-features">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <span class="section-label">Shop with Confidence</span>
+        <h2 class="section-title">Fast Shipping, Easy Returns, <span>Secure Payments</span></h2>
+        <p class="section-sub mt-3" style="max-width:520px">Reliable delivery, clear returns, multiple secure payment methods, and local support — everything you need to buy worry-free.</p>
+        <div class="feature-list mt-4">
+          <div class="feature-item">
+            <i class="bi bi-truck"></i>
+            <div>
+              <div class="feature-title">Express Shipping</div>
+              <div class="feature-desc">Trackable delivery across Ghana — fast options available.</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <i class="bi bi-arrow-counterclockwise"></i>
+            <div>
+              <div class="feature-title">30-Day Returns</div>
+              <div class="feature-desc">Hassle-free returns and refunds on eligible items.</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <i class="bi bi-lock"></i>
+            <div>
+              <div class="feature-title">Secure Checkout</div>
+              <div class="feature-desc">Encrypted payments, trusted gateways, PCI-compliant flows.</div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex gap-2 flex-wrap mt-4">
+          <span class="badge bg-light text-dark px-3 py-2">Verified Seller</span>
+          <span class="badge bg-light text-dark px-3 py-2">Trusted Payments</span>
+          <span class="badge bg-light text-dark px-3 py-2">Local Support</span>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="row g-3">
+          <div class="col-6"><div class="feature-card"><i class="bi bi-calendar2-check"></i><div><div class="card-title">Same-day Dispatch</div><div class="card-sub">Order before 2pm</div></div></div></div>
+          <div class="col-6"><div class="feature-card"><i class="bi bi-box-seam"></i><div><div class="card-title">Free Shipping</div><div class="card-sub">On orders over GHS 300</div></div></div></div>
+          <div class="col-6"><div class="feature-card"><i class="bi bi-currency-exchange"></i><div><div class="card-title">Multiple Payments</div><div class="card-sub">Card, MoMo, Bank Transfer</div></div></div></div>
+          <div class="col-6"><div class="feature-card"><i class="bi bi-people"></i><div><div class="card-title">24/7 Support</div><div class="card-sub">Chat & Email assistance</div></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--CATEGORIES -->
+<section class="premium-categories" id="categories">
+  <div class="container">
+    <div class="category-header text-center text-md-start d-md-flex justify-content-between align-items-end mb-5">
+      <div>
+        <span class="sub-title">Premium Selections</span>
+        <h2 class="main-title">Flavors & Hardware <span>Built to Scale</span></h2>
+      </div>
+      <a href="#products" class="btn-view-all-premium mt-3 mt-md-0">View Full Catalog <i class="bi bi-arrow-right"></i></a>
+    </div>
+    <div class="categories-isometric-grid">
+      <div class="tilt-card-wrapper"><div class="tilt-card" data-tilt><div class="card-image-box"><img src="./images/rice_porridge_mango 300g.jpg" alt="Foods & Refreshments" /><div class="sliding-action-overlay"><a href="#products" class="action-btn-pill">Explore Refreshments</a></div></div><div class="card-meta-details"><h3>Foods & Refreshments</h3><p>8 Products Available</p></div></div></div>
+      <div class="tilt-card-wrapper"><div class="tilt-card" data-tilt><div class="card-image-box"><img src="./images/tray-dehydrator3.jpg" alt="Commercial Dehydrators" /><div class="sliding-action-overlay"><a href="#products" class="action-btn-pill">Explore Dehydrators</a></div></div><div class="card-meta-details"><h3>Commercial Dehydrators</h3><p>5 Systems Available</p></div></div></div>
+      <div class="tilt-card-wrapper"><div class="tilt-card" data-tilt><div class="card-image-box"><img src="./images/slicer.jpg" alt="Slicers & Cutters" /><div class="sliding-action-overlay"><a href="#products" class="action-btn-pill">Explore Slicers</a></div></div><div class="card-meta-details"><h3>Slicers & Cutters</h3><p>3 Systems Available</p></div></div></div>
+      <div class="tilt-card-wrapper"><div class="tilt-card" data-tilt><div class="card-image-box"><img src="./images/sealing.jpg" alt="Sealing & Milling" /><div class="sliding-action-overlay"><a href="#products" class="action-btn-pill">Explore Engineering</a></div></div><div class="card-meta-details"><h3>Sealing & Milling</h3><p>2 Systems Available</p></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products-section" id="products">
+  <div class="container">
+    <div class="text-center mb-2">
+      <span class="section-label reveal">Our Selection</span>
+      <h2 class="section-title reveal">Featured <span>Products</span></h2>
+      <p class="reveal mx-auto" style="color:var(--text-muted);font-size:1rem;max-width:480px;margin-top:0.5rem;">Premium instant nutrition and commercial hardware configurations crafted by food science engineers.</p>
+    </div>
+    <div class="filter-tabs justify-content-center reveal mt-4">
+      <button class="filter-tab active" data-filter="all">All Items</button>
+      <button class="filter-tab" data-filter="food">Foods & Refreshments</button>
+      <button class="filter-tab" data-filter="dehydrator">Dehydrators</button>
+      <button class="filter-tab" data-filter="slicer">Slicers & Cutters</button>
+      <button class="filter-tab" data-filter="machinery">Sealing & Milling</button>
+    </div>
+    <div class="row g-4" id="productGrid"></div>
+  </div>
+</section>
+
+<!--BANNER -->
+<section class="banner-section">
+  <div class="container position-relative">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6 reveal">
+        <span class="section-label" style="background:rgba(255,255,255,0.1);color:var(--gold);">Why Zee Afrika</span>
+        <h2 class="mt-2">Nutritious Fast Food. <span>Industrial Scale Power.</span></h2>
+        <p class="mt-3">We build bridges between raw natural nourishment and advanced processing engineering — reliable solutions for homes and agricultural facilities alike.</p>
+        <div class="banner-feature"><div class="banner-feature-icon"><i class="bi bi-lightning-charge-fill"></i></div><div><h5>Just Add Water Convenience</h5><p>Engineered for high-energy modern environments where time is a luxury, but health cannot be compromised.</p></div></div>
+        <div class="banner-feature"><div class="banner-feature-icon"><i class="bi bi-gear-fill"></i></div><div><h5>Commercial Grade Hardware</h5><p>From multi-tray smart-dehydrators to precision high-speed slicers, we scale manufacturing productivity.</p></div></div>
+        <div class="banner-feature"><div class="banner-feature-icon"><i class="bi bi-shield-check"></i></div><div><h5>Verified Quality Standards</h5><p>Every food batch and machinery model runs through systematic quality control before dispatch.</p></div></div>
+      </div>
+      <div class="col-lg-6 reveal reveal-delay-2">
+        <div class="row g-3">
+          <div class="col-6"><img src="./images/rice_porridge_tigernut 300g.jpg" alt="" class="img-fluid rounded-4 w-100" style="height:200px;object-fit:cover;" /></div>
+          <div class="col-6 pt-4"><img src="./images/tray-dehydrator3.jpg" alt="" class="img-fluid rounded-4 w-100" style="height:200px;object-fit:cover;" /></div>
+          <div class="col-6"><img src="./images/cashmint_twist-150ml.jpg" alt="" class="img-fluid rounded-4 w-100" style="height:200px;object-fit:cover;" /></div>
+          <div class="col-6 pt-4"><img src="./images/slicer.jpg" alt="" class="img-fluid rounded-4 w-100" style="height:200px;object-fit:cover;" /></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--TESTIMONIALS -->
+<section class="testimonials-section" id="testimonials">
+  <div class="container">
+    <div class="text-center mb-5">
+      <span class="section-label reveal">Community Feedback</span>
+      <h2 class="section-title reveal">Trusted by <span>Homes & Operations</span></h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4 reveal reveal-delay-1"><div class="testimonial-card"><div class="testimonial-quote">"</div><div class="testimonial-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div><p class="testimonial-text">The instant rice porridge with tiger nut is amazing during intense code sprint weeks. Under two minutes to prepare, tastes great, keeps me sharp without post-meal fatigue.</p><div class="testimonial-author"><div class="testimonial-avatar">D</div><div><div class="testimonial-name">David Osei</div><div class="testimonial-location">Software Engineering, Accra</div></div></div></div></div>
+      <div class="col-md-4 reveal reveal-delay-2"><div class="testimonial-card" style="border-color:var(--green-light)"><div class="testimonial-quote">"</div><div class="testimonial-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div><p class="testimonial-text">We integrated their 80-tray commercial dehydrator into our agro-processing plant. The temperature management is extremely reliable and consistent across our processing lines.</p><div class="testimonial-author"><div class="testimonial-avatar" style="background:var(--orange)">M</div><div><div class="testimonial-name">Mavis Baidoo</div><div class="testimonial-location">Agro-Processor, Kumasi</div></div></div></div></div>
+      <div class="col-md-4 reveal reveal-delay-3"><div class="testimonial-card"><div class="testimonial-quote">"</div><div class="testimonial-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div><p class="testimonial-text">The CashMint Twist infusion drink is phenomenal — refreshing, uniquely balanced, and completely free from artificial aftertastes. The whole family loves it.</p><div class="testimonial-author"><div class="testimonial-avatar" style="background:var(--gold);color:var(--dark)">E</div><div><div class="testimonial-name">Ellen Lamptey</div><div class="testimonial-location">Home Customer, East Legon</div></div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STORY ── -->
+<section class="story-section" id="story">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-5 reveal">
+        <div class="story-img-wrap">
+          <img src="./images/tray_dehydrator2.jpg" alt="Zee Afrika Engineering" />
+          <div class="story-years-badge"><div class="num">PFS</div><div class="label">Agro<br>Innovation</div></div>
+        </div>
+      </div>
+      <div class="col-lg-7 reveal reveal-delay-2">
+        <span class="section-label">Our Foundation</span>
+        <h2 class="section-title mt-2">Driven by <span>Nutritional Logic</span> & System Engineering</h2>
+        <p class="mt-3 mb-3" style="color:var(--text-muted);line-height:1.8;">Zee Afrika was engineered to change the mechanics of agro-value distribution within Ghana. True market empowerment requires addressing consumer meals and processing speed simultaneously.</p>
+        <p style="color:var(--text-muted);line-height:1.8;">Our daily consumer lines provide quick, wholesome nutrition to active households, while our specialized automated preprocessing machinery equips enterprise operations to minimize field losses and boost output across West Africa.</p>
+        <div class="row g-3 mt-3">
+          <div class="col-4"><div class="p-3 text-center rounded-3" style="background:#fff;"><div style="font-family:var(--font-display);font-size:1.8rem;font-weight:700;color:var(--green-deep);">100%</div><div style="font-size:0.78rem;color:var(--text-muted);">Natural Basis</div></div></div>
+          <div class="col-4"><div class="p-3 text-center rounded-3" style="background:#fff;"><div style="font-family:var(--font-display);font-size:1.8rem;font-weight:700;color:var(--orange);">Multi</div><div style="font-size:0.78rem;color:var(--text-muted);">Size Systems</div></div></div>
+          <div class="col-4"><div class="p-3 text-center rounded-3" style="background:#fff;"><div style="font-family:var(--font-display);font-size:1.8rem;font-weight:700;color:var(--gold);">Pre</div><div style="font-size:0.78rem;color:var(--text-muted);">Order Tracks</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIALS -->
+<section class="insta-section" id="recipes">
+  <div class="container">
+    <div class="row align-items-center mb-4">
+      <div class="col">
+        <span class="section-label reveal">@zeegreens</span>
+        <h2 class="section-title reveal" style="color:#fff">Follow Our <span>Production Line</span> Flow</h2>
+        <p class="reveal" style="color:rgba(255,255,255,0.55);font-size:0.95rem;">Industrial machinery setups, batch processing guidelines, and recipe creations</p>
+      </div>
+      <div class="col-auto reveal">
+        <a href="#" class="btn btn-outline-light rounded-pill px-4"><i class="bi bi-tiktok me-2"></i>Follow Us</a>
+      </div>
+    </div>
+    <div class="insta-grid reveal">
+      <div class="insta-item"><img src="./images/rice_porridge_mango 250g.jpg" alt="Product Guide" /><div class="insta-overlay"><i class="bi bi-play-circle-fill"></i></div></div>
+      <div class="insta-item"><img src="./images/tray-dehydrator3.jpg" alt="Dehydrator Runs" /><div class="insta-overlay"><i class="bi bi-play-circle-fill"></i></div></div>
+      <div class="insta-item"><img src="./images/cashmint_twist-150ml.jpg" alt="CashMint Twist" /><div class="insta-overlay"><i class="bi bi-play-circle-fill"></i></div></div>
+      <div class="insta-item"><img src="./images/slicer.jpg" alt="Precision Slicer" /><div class="insta-overlay"><i class="bi bi-play-circle-fill"></i></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-section">
+  <div class="container position-relative">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-6 reveal">
+        <h2>Stay Aligned with Food Science & Hardware System Updates</h2>
+        <p class="mt-2">Get operational deployment notices, batch processing research, and machinery build restock details.</p>
+      </div>
+      <div class="col-lg-6 reveal reveal-delay-2">
+        <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+          <input type="email" placeholder="Enter your business email address..." required />
+          <button type="submit">Join Network</button>
+        </form>
+        <p class="mt-2" style="color:rgba(255,255,255,0.55);font-size:0.8rem;"><i class="bi bi-shield-check me-1"></i>Data handled to commercial privacy codes. Unsubscribe instantly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER-->
+<footer>
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6">
+        <div class="footer-brand">
+          <img src="./images/zee_afrika_logo.jpg" alt="Zee Afrika" onerror="this.style.display='none'" />
+          <p class="mt-2">Operating as a specialized division under professional food science structures. We engineer functional consumer fast nutrients and industrial processing hardware configurations.</p>
+        </div>
+        <div class="footer-social">
+          <a href="#"><i class="bi bi-facebook"></i></a>
+          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-tiktok"></i></a>
+          <a href="#"><i class="bi bi-linkedin"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-3 col-6">
+        <h6 class="footer-heading">Quick Navigation</h6>
+        <ul class="footer-links">
+          <li><a href="#products">Storefront</a></li>
+          <li><a href="#categories">Categories</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+          <li><a href="#story">Operations</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-2 col-md-3 col-6">
+        <h6 class="footer-heading">Infrastructure</h6>
+        <ul class="footer-links">
+          <li><a href="#products">Foods & Drinks</a></li>
+          <li><a href="#products">Dryer Modules</a></li>
+          <li><a href="#products">Precision Cutters</a></li>
+          <li><a href="#products">Milling Hardware</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <h6 class="footer-heading">Corporate Desk</h6>
+        <ul class="footer-links">
+          <li><a href="#"><i class="bi bi-geo-alt me-2"></i>Accra, Greater Accra Region, Ghana</a></li>
+          <li><a href="tel:+233000000000"><i class="bi bi-telephone me-2"></i>+233 (0) 00 000 0000</a></li>
+          <li><a href="mailto:info@pneuma-fs.com"><i class="bi bi-envelope me-2"></i>info@pneuma-fs.com</a></li>
+        </ul>
+        <div class="mt-3 d-flex gap-2 flex-wrap">
+          <span class="badge rounded-pill px-3 py-2" style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.65);font-weight:400;font-size:0.78rem;"><i class="bi bi-shield-check me-1"></i>PFS Verification Lab Certified</span>
+          <span class="badge rounded-pill px-3 py-2" style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.65);font-weight:400;font-size:0.78rem;"><i class="bi bi-gear me-1"></i>Pre-Order Operations Cleared</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Zee Afrika. All rights reserved.</p>
+      <p>
+        <a href="#" style="color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.82rem;margin-right:1rem;">Operational Rules</a>
+        <a href="#" style="color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.82rem;">Service Terms</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast-cart" id="cartToast">
+  <i class="bi bi-bag-check-fill" style="font-size:1.3rem;color:var(--green-light)"></i>
+  <div>
+    <div style="font-weight:600;font-size:0.92rem;">Added to cart!</div>
+    <div style="font-size:0.8rem;opacity:0.75" id="toastProductName"></div>
+  </div>
+</div>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i class="bi bi-chevron-up"></i>
+</button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// SLIDE DATA 
+const slides = [
+  {
+    badge: 'Empowering Ghanaian Food & Processing',
+    tag: 'New',
+    eyebrow: 'Premium Instant Nutrition',
+    lines: ['Taste the Purity', 'of <em>Africa,</em>', 'Powered by Innovation'],
+    desc: "Discover Zee Greens' premium, easy-to-prepare healthy food products alongside state-of-the-art agro-processing machinery built to scale your business.",
+    cta1: { text: '<i class="bi bi-bag-fill"></i> Shop Food Products', href: '#products' },
+    cta2: { text: '<i class="bi bi-gear"></i> Explore Equipment', href: '#products' },
+    stats: [{ num: '8+', label: 'Food Products' }, { num: 'Just Add', label: 'Water Meals' }, { num: 'Pre-Order', label: 'Machinery' }],
+    card: { img: './images/rice_porridge_tigernut 300g.jpg', tag: 'Best Seller · Foods & Refreshments', name: 'Instant Rice Porridge with Tiger Nut', price: 'From GHS 15', desc: 'Premium instant nutrition — just add water. Packed with natural energy for active lifestyles.' }
+  },
+  {
+    badge: 'Commercial Agro-Processing Systems',
+    tag: 'Pre-Order',
+    eyebrow: 'Industrial-Grade Equipment',
+    lines: ['Scale Your', '<em>Processing</em>', 'Operations'],
+    desc: 'High-capacity commercial dehydrators from 10 to 96 trays — engineered for consistent output, reliable temperature management, and maximum uptime.',
+    cta1: { text: '<i class="bi bi-gear-fill"></i> Explore Dehydrators', href: '#products' },
+    cta2: { text: '<i class="bi bi-bag"></i> Pre-Order Now', href: '#products' },
+    stats: [{ num: '5', label: 'Dryer Systems' }, { num: '96', label: 'Max Trays' }, { num: 'Ghana', label: 'Wide Delivery' }],
+    card: { img: './images/tray-dehydrator3.jpg', tag: 'Pre-Order · Commercial Dehydrators', name: 'Commercial Multi-Tray Dehydrators', price: 'From GHS 3,218', desc: 'Available in 10, 12, 20, 80 and 96 tray configurations for any scale of production.' }
+  },
+  {
+    badge: 'CashMint Twist · New Drink Launch',
+    tag: 'New Drink',
+    eyebrow: 'Cashew Apple Infusion',
+    lines: ['Refreshing', '<em>Natural</em> Flavors', 'from Ghana'],
+    desc: "Introducing CashMint Twist — a uniquely balanced cashew apple infusion drink, completely free from artificial aftertastes. Loved by the whole family.",
+    cta1: { text: '<i class="bi bi-bag-fill"></i> Shop CashMint Twist', href: '#products' },
+    cta2: { text: '<i class="bi bi-info-circle"></i> Learn More', href: '#products' },
+    stats: [{ num: '150ml', label: '& 300ml Cans' }, { num: '100%', label: 'Natural' }, { num: 'Zero', label: 'Artificial Add.' }],
+    card: { img: './images/cashmint_twist-150ml.jpg', tag: 'New Launch · Refreshments', name: 'CashMint Twist (Cashew Apple)', price: 'GHS 20 (150ml)', desc: 'Distinctively refreshing cashew apple infusion. Natural, balanced, and uniquely Ghanaian.' }
+  },
+  {
+    badge: 'Precision Food Processing Machinery',
+    tag: 'Available',
+    eyebrow: 'Slicers, Sealers & Mills',
+    lines: ['Build Your', 'Processing', '<em>Infrastructure</em>'],
+    desc: 'From manual to fully automatic slicers, industrial milling systems, and pneumatic packaging sealers — complete processing lines for serious operations.',
+    cta1: { text: '<i class="bi bi-tools"></i> View All Machinery', href: '#products' },
+    cta2: { text: '<i class="bi bi-telephone"></i> Get a Quote', href: '#story' },
+    stats: [{ num: '4', label: 'Machine Types' }, { num: 'Heavy', label: 'Duty Grade' }, { num: 'Fast', label: 'Dispatch' }],
+    card: { img: './images/slicer.jpg', tag: 'Available · Slicers & Cutters', name: 'Precision Production Slicing Machinery', price: 'From GHS 1,375', desc: 'Manual and automatic slicers for high-volume food processing. Built for consistent results at scale.' }
+  }
+];
+
+// CAROUSEL STATE 
+let currentSlide = 0;
+let autoplayTimer = null;
+let isTransitioning = false;
+const AUTOPLAY_INTERVAL = 5000;
+
+function goToSlide(idx, resetProgress = true) {
+  if (isTransitioning || idx === currentSlide) return;
+  isTransitioning = true;
+
+  // Update slides
+  const slideEls = document.querySelectorAll('.hero-slide');
+  slideEls[currentSlide].classList.remove('active');
+  slideEls[idx].classList.add('active');
+
+  // Update dots
+  document.querySelectorAll('.slide-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+
+  // Update counter
+  document.getElementById('slideCurrentNum').textContent = String(idx + 1).padStart(2, '0');
+
+  // Animate out old content
+  const heroContent = document.getElementById('heroContent');
+  heroContent.classList.remove('hero-content-active');
+
+  currentSlide = idx;
+
+  setTimeout(() => {
+    updateHeroContent(slides[idx]);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        heroContent.classList.add('hero-content-active');
+        isTransitioning = false;
+      });
+    });
+  }, 350);
+
+  if (resetProgress) resetAutoplay();
+}
+
+function updateHeroContent(s) {
+  document.getElementById('slideBadgeText').textContent = s.badge;
+  document.getElementById('slideBadgeTag').textContent = s.tag;
+  document.getElementById('slideEyebrow').textContent = s.eyebrow;
+  document.getElementById('heroLine1').innerHTML = s.lines[0];
+  document.getElementById('heroLine2').innerHTML = s.lines[1];
+  document.getElementById('heroLine3').innerHTML = s.lines[2];
+  document.getElementById('heroDesc').textContent = s.desc;
+  document.getElementById('heroCta1').innerHTML = s.cta1.text;
+  document.getElementById('heroCta1').href = s.cta1.href;
+  document.getElementById('heroCta2').innerHTML = s.cta2.text;
+  document.getElementById('heroCta2').href = s.cta2.href;
+  document.getElementById('heroStat1Num').textContent = s.stats[0].num;
+  document.getElementById('heroStat1Label').textContent = s.stats[0].label;
+  document.getElementById('heroStat2Num').textContent = s.stats[1].num;
+  document.getElementById('heroStat2Label').textContent = s.stats[1].label;
+  document.getElementById('heroStat3Num').textContent = s.stats[2].num;
+  document.getElementById('heroStat3Label').textContent = s.stats[2].label;
+  // Card
+  const hv = document.getElementById('heroVisualImg');
+  const hvc = document.getElementById('heroVisualCaption');
+  if(hv) hv.src = s.card.img;
+  if(hvc) hvc.textContent = s.card.name + ' · ' + s.card.price;
+}
+
+function startProgress() {
+  const bar = document.getElementById('heroProgress');
+  // restart the progress animation reliably
+  bar.classList.remove('animating');
+  bar.style.transition = 'none';
+  bar.style.width = '0%';
+  // force reflow so the removal takes effect
+  void bar.offsetWidth;
+  requestAnimationFrame(() => {
+    bar.classList.add('animating');
+  });
+}
+
+function resetAutoplay() {
+  clearInterval(autoplayTimer);
+  startProgress();
+  autoplayTimer = setInterval(() => {
+    goToSlide((currentSlide + 1) % slides.length, true);
+  }, AUTOPLAY_INTERVAL);
+}
+
+// Controls
+document.getElementById('nextSlide').addEventListener('click', () => goToSlide((currentSlide + 1) % slides.length));
+document.getElementById('prevSlide').addEventListener('click', () => goToSlide((currentSlide + slides.length - 1) % slides.length));
+document.querySelectorAll('.slide-dot').forEach((dot, i) => {
+  dot.addEventListener('click', () => goToSlide(i));
+});
+
+// Touch / swipe
+let touchStartX = 0;
+document.querySelector('.hero').addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+document.querySelector('.hero').addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(dx) > 50) dx < 0 ? goToSlide((currentSlide+1)%slides.length) : goToSlide((currentSlide+slides.length-1)%slides.length);
+}, { passive: true });
+
+// PRODUCTS 
+const products = [
+  { id:1, name:'Instant Rice Porridge Only', category:'food', categoryLabel:'Foods & Refreshments', badge:'Best Seller', rating:5, reviews:128, variants:[{label:'100g',price:'GHS 13',img:'./images/rice_porridge_mango 250g.jpg'},{label:'500g',price:'GHS 57',img:'./images/rice_porridge_mango 300g.jpg'}] },
+  { id:2, name:'Instant Rice Porridge with Creamer', category:'food', categoryLabel:'Foods & Refreshments', badge:'Popular', rating:5, reviews:94, variants:[{label:'100g',price:'GHS 13',img:'./images/rice_porridge_mango 300g.jpg'},{label:'500g',price:'GHS 57',img:'./images/fibre_porridge_mango 250g.jpg'}] },
+  { id:3, name:'Instant Rice Porridge with Cashew Nuts', category:'food', categoryLabel:'Foods & Refreshments', badge:null, rating:5, reviews:104, variants:[{label:'100g',price:'GHS 16',img:'./images/rice_porridge_cashew 300g.jpg'},{label:'500g',price:'GHS 72',img:'./images/rice_porridge_cashew_apple 300g.jpg'}] },
+  { id:4, name:'Instant Rice Porridge with Tiger Nut', category:'food', categoryLabel:'Foods & Refreshments', badge:'Premium Mix', rating:5, reviews:112, variants:[{label:'100g',price:'GHS 15',img:'./images/rice_porridge_tigernut 300g.jpg'},{label:'500g',price:'GHS 67',img:'./images/rice_porridge_tigernut 300g.jpg'}] },
+  { id:5, name:'Instant Rice Porridge with Carrot', category:'food', categoryLabel:'Foods & Refreshments', badge:null, rating:4, reviews:88, variants:[{label:'100g',price:'GHS 16',img:'./images/fibre_porridge_mango 250g.jpg'},{label:'500g',price:'GHS 72',img:'./images/rice_porridge_mango 300g.jpg'}] },
+  { id:6, name:'Instant Rice Porridge with Mango', category:'food', categoryLabel:'Foods & Refreshments', badge:'Fruit Track', rating:5, reviews:96, variants:[{label:'100g',price:'GHS 15',img:'./images/rice_porridge_mango 300g.jpg'},{label:'500g',price:'GHS 67',img:'./images/fibre_porridge_mango 250g.jpg'}] },
+  { id:7, name:'High Fruit Fibre Porridge', category:'food', categoryLabel:'Foods & Refreshments', badge:'High Fibre', rating:5, reviews:142, variants:[{label:'100g',price:'GHS 23',img:'./images/fibre_porridge_mango 250g.jpg'},{label:'500g',price:'GHS 107',img:'./images/rice_porridge_mango 300g.jpg'}] },
+  { id:8, name:'CashMint Twist (Cashew Apple Infusion)', category:'food', categoryLabel:'Foods & Refreshments', badge:'New Drink', rating:5, reviews:67, variants:[{label:'150ml Can',price:'GHS 20',img:'./images/cashmint_twist-150ml.jpg'},{label:'300ml Can',price:'GHS 35',img:'./images/cashmint_twist 300ml.jpg'}] },
+
+];
+const selectedVariants = {};
+products.forEach(p => { selectedVariants[p.id] = 0; });
+let cartCount = 0;
+
+function selectVariant(productId, variantIndex) {
+  if (selectedVariants[productId] === variantIndex) return;
+  selectedVariants[productId] = variantIndex;
+  const product = products.find(p => p.id === productId);
+  const variant = product.variants[variantIndex];
+  const card = document.querySelector(`[data-product-id="${productId}"]`);
+  card.querySelectorAll('.variant-btn').forEach((btn,i) => btn.classList.toggle('active', i===variantIndex));
+  const img = card.querySelector('.product-img-wrap img');
+  img.classList.add('swapping');
+  setTimeout(() => { img.src = variant.img; img.classList.remove('swapping'); }, 250);
+  card.querySelector('.product-price').textContent = variant.price;
+}
+
+function renderProducts(filter='all') {
+  const grid = document.getElementById('productGrid');
+  const filtered = filter==='all' ? products : products.filter(p=>p.category===filter);
+  grid.innerHTML = filtered.map((p,i) => {
+    const dv = p.variants[selectedVariants[p.id]||0];
+    const stars = '<i class="bi bi-star-fill"></i>'.repeat(p.rating) + (p.rating<5?'<i class="bi bi-star"></i>'.repeat(5-p.rating):'');
+    const vBtns = p.variants.map((v,vi)=>`<button class="variant-btn ${vi===0?'active':''}" onclick="selectVariant(${p.id},${vi})">${v.label}</button>`).join('');
+    return `<div class="col-sm-6 col-md-4 col-lg-3 reveal reveal-delay-${(i%4)+1}">
+      <div class="product-card" data-product-id="${p.id}">
+        <div class="product-img-wrap">
+          <img src="${dv.img}" alt="${p.name}" loading="lazy" />
+          ${p.badge?`<span class="product-badge">${p.badge}</span>`:''}
+          <button class="product-wishlist" onclick="this.classList.toggle('active')"><i class="bi bi-heart-fill"></i></button>
+        </div>
+        <div class="product-body">
+          <div class="product-category">${p.categoryLabel}</div>
+          <div class="product-name">${p.name}</div>
+          <div class="product-stars">${stars}<span>(${p.reviews})</span></div>
+          ${p.variants.length>1?`<div class="variant-label">Configuration</div><div class="variant-btns">${vBtns}</div>`:''}
+          <div class="product-footer">
+            <div class="product-price">${dv.price}</div>
+            <button class="btn-add-cart" onclick="addToCart('${p.name}')"><i class="bi bi-bag-plus"></i> Add</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  observeReveal();
+}
+
+document.querySelectorAll('.filter-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    renderProducts(tab.dataset.filter);
+  });
+});
+
+function addToCart(name) {
+  cartCount++;
+  const c = document.getElementById('cartCount');
+  c.textContent = cartCount;
+  c.style.display = 'flex';
+  document.getElementById('toastProductName').textContent = name;
+  const toast = document.getElementById('cartToast');
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+function observeReveal() {
+  const els = document.querySelectorAll('.reveal:not(.visible)');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  els.forEach(el=>obs.observe(el));
+}
+
+const navbar = document.querySelector('.navbar');
+window.addEventListener('scroll', () => {
+  const hero = document.querySelector('.hero');
+  if(!hero) return;
+  navbar.classList.toggle('scrolled', window.scrollY > hero.offsetHeight*0.55);
+  document.getElementById('backToTop').classList.toggle('visible', window.scrollY>400);
+}, {passive:true});
+
+function handleNewsletter(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button');
+  btn.textContent = '✓ Connected!';
+  btn.style.background = 'var(--green-deep)';
+  setTimeout(() => { btn.textContent = 'Join Network'; btn.style.background = ''; }, 3000);
+}
+
+// Tilt effect
+function initTilt() {
+  document.querySelectorAll('[data-tilt]').forEach(card => {
+    const wrapper = card.closest('.tilt-card-wrapper');
+    if(!wrapper) return;
+    wrapper.addEventListener('mousemove', e => {
+      const r = wrapper.getBoundingClientRect();
+      const x = e.clientX - r.left, y = e.clientY - r.top;
+      const tiltX = ((r.height/2 - y)/r.height*2)*10;
+      const tiltY = ((x - r.width/2)/r.width*2)*10;
+      card.style.transform = `rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) scale3d(1.02,1.02,1.02)`;
+    });
+    wrapper.addEventListener('mouseleave', () => { card.style.transform = 'rotateX(0deg) rotateY(0deg) scale3d(1,1,1)'; });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderProducts();
+  initTilt();
+  observeReveal();
+  // Init hero
+  const heroContent = document.getElementById('heroContent');
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      heroContent.classList.add('hero-content-active');
+    });
+  });
+  resetAutoplay();
+});
+</script>
+</body>
+</html>
