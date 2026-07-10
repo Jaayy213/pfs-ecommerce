@@ -1,4 +1,4 @@
-//  CART STATE........Sample Outlook
+	//  CART STATE........Sample Outlook
 const cartItems = {
 	1: { name: 'Instant Rice Porridge with Tiger Nut', unitPrice: 15, qty: 2, active: true },
 	2: { name: 'CashMint Twist (Cashew Apple Infusion)', unitPrice: 20, qty: 3, active: true },
@@ -118,7 +118,7 @@ function showToast(title, msg) {
 	t._timer = setTimeout(() => t.classList.remove('show'), 3200);
 }
 
-// ── RECOMMENDED PRODUCTS ──
+// RECOMMENDED PRODUCTS 
 const recommended = [
 	{ name: 'Instant Rice Porridge with Mango', category: 'Foods & Refreshments', price: 'GHS 15', img: './images/rice_porridge_mango 300g.jpg' },
 	{ name: 'Instant Rice Porridge with Cashew Nuts', category: 'Foods & Refreshments', price: 'GHS 16', img: './images/rice_porridge_cashew 300g.jpg' },

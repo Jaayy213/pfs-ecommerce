@@ -1,8 +1,7 @@
-// ════════════════════════════════════════════════
+
 //  DATA
-// ════════════════════════════════════════════════
 const PRODUCTS = [
-	// ── Foods & Drinks
+	// Foods & Drinks
 	{
 		id:1, cat:'food', name:'Instant Rice Porridge Only',
 		catLabel:'Foods & Drinks', badge:'Best Seller', badgeClass:'badge-hot',
@@ -59,7 +58,7 @@ const PRODUCTS = [
 		variants:[{label:'150ml Can',price:20,priceStr:'GHS 20',img:'./images/cashmint_twist-150ml.jpg'},
 							{label:'300ml Can',price:35,priceStr:'GHS 35',img:'./images/cashmint_twist 300ml.jpg'}]
 	},
-	// ── Dehydrators
+	// Dehydrators
 	{
 		id:9, cat:'dehydrator', name:'10-Tray Commercial Dehydrator',
 		catLabel:'Commercial Dehydrators', badge:'Pre-Order', badgeClass:'badge-preorder',
@@ -90,7 +89,7 @@ const PRODUCTS = [
 		rating:5, reviews:6, avail:'preorder', tags:['dehydrator','industrial','96tray'],
 		variants:[{label:'96 Trays',price:5950,priceStr:'GHS 5,950',img:'./images/tray-dehydrator3.jpg'}]
 	},
-	// ── Slicers
+	// Slicers
 	{
 		id:14, cat:'slicer', name:'Manual Precision Food Slicer',
 		catLabel:'Slicers & Cutters', badge:null,
@@ -103,7 +102,7 @@ const PRODUCTS = [
 		rating:5, reviews:27, avail:'in_stock', tags:['slicer','automatic','high-speed'],
 		variants:[{label:'Standard',price:2100,priceStr:'GHS 2,100',img:'./images/slicer.jpg'}]
 	},
-	// ── Sealing & Milling
+	// Sealing & Milling
 	{
 		id:16, cat:'machinery', name:'Pneumatic Continuous Band Sealer',
 		catLabel:'Sealing & Milling', badge:'Available', badgeClass:'badge-sale',
@@ -112,9 +111,7 @@ const PRODUCTS = [
 	},
 ];
 
-// ════════════════════════════════════════════════
-//  STATE
-// ════════════════════════════════════════════════
+// STATE
 let activeCategory = 'all';
 let activeView     = 'grid';
 let minRating      = 0;
@@ -126,9 +123,7 @@ PRODUCTS.forEach(p => { selectedVariants[p.id] = 0; });
 const allTags = [...new Set(PRODUCTS.flatMap(p => p.tags))];
 let activeTags = new Set();
 
-// ════════════════════════════════════════════════
-//  FILTERS & SORT
-// ════════════════════════════════════════════════
+// FILTERS & SORT
 function setCategory(btn, cat) {
 	document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
 	btn.classList.add('active');
@@ -216,9 +211,7 @@ function getFilteredProducts() {
 	return list;
 }
 
-// ════════════════════════════════════════════════
-//  RENDER
-// ════════════════════════════════════════════════
+// RENDER
 function starsHTML(rating) {
 	let s = '';
 	for (let i=1;i<=5;i++) s += `<i class="bi bi-star-fill${i>rating?' empty':''}"></i>`;
@@ -402,9 +395,7 @@ function resetAll() {
 	renderGrid();
 }
 
-// ════════════════════════════════════════════════
-//  TOAST
-// ════════════════════════════════════════════════
+// TOAST
 function showToast(type, title, sub) {
 	const wrap = document.getElementById('toastWrap');
 	const t = document.createElement('div');
@@ -417,15 +408,11 @@ function showToast(type, title, sub) {
 	setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 450); }, 3000);
 }
 
-// ════════════════════════════════════════════════
-//  FILTER DRAWER
-// ════════════════════════════════════════════════
+// FILTER DRAWER
 function openFilterDrawer()  { document.getElementById('filterDrawer').classList.add('open'); document.getElementById('filterOverlay').classList.add('open'); }
 function closeFilterDrawer() { document.getElementById('filterDrawer').classList.remove('open'); document.getElementById('filterOverlay').classList.remove('open'); }
 
-// ════════════════════════════════════════════════
-//  REVEAL
-// ════════════════════════════════════════════════
+// REVEAL
 function observeReveal() {
 	const obs = new IntersectionObserver(entries => {
 		entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
@@ -433,9 +420,7 @@ function observeReveal() {
 	document.querySelectorAll('.reveal:not(.visible)').forEach(el => obs.observe(el));
 }
 
-// ════════════════════════════════════════════════
-//  INIT
-// ════════════════════════════════════════════════
+// INIT
 document.addEventListener('DOMContentLoaded', () => {
 	const navbar = document.querySelector('.navbar');
 	const hero = document.querySelector('.page-hero');

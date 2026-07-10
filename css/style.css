@@ -35,7 +35,7 @@ h4 {
     font-family: 'Playfair Display', serif;
 }
 
-/* ── NAVBAR ─────────────────────────────────── */
+/* NAVBAR */
 .navbar {
     background: transparent;
     border-bottom: 1px solid transparent;
@@ -236,7 +236,7 @@ h4 {
             .hero .hero-image-wrap img { max-width: 360px; }
         }
 
-/* ── PRODUCT VARIANTS ────────────────────────── */
+/* PRODUCT VARIANTS */
 .variant-label {
     font-size: 0.78rem;
     font-weight: 700;
@@ -539,7 +539,7 @@ h4 {
     }
 }
 
-/* ── SCROLL REVEAL ───────────────────────────── */
+/* SCROLL REVEAL */
 .reveal {
     opacity: 0;
     transform: translateY(40px);
@@ -567,7 +567,7 @@ h4 {
     transition-delay: 0.4s;
 }
 
-/* ── SECTION SHARED ──────────────────────────── */
+/* SECTION SHARED */
 section {
     padding: 5rem 0;
 }
@@ -603,7 +603,7 @@ section {
     line-height: 1.7;
 }
 
-/* ── MARQUEE STRIP ───────────────────────────── */
+/* MARQUEE STRIP */
 .marquee-strip {
     background: var(--green-deep);
     padding: 0.85rem 0;
@@ -641,12 +641,9 @@ section {
     }
 }
 
-/* ygdigoafvwugwshfbsauyfwer */
-
-
 .premium-categories {
   padding: 80px 0;
-  background-color: var(--cream); /* Replaced with brand cream */
+  background-color: var(--cream);
 }
 
 .category-header .sub-title {
@@ -654,7 +651,7 @@ section {
   text-transform: uppercase;
   letter-spacing: 2px;
   font-size: 0.85rem;
-  color: var(--green-mid); /* Replaced with mid brand green */
+  color: var(--green-mid);
   font-weight: 700;
   display: block;
 }
@@ -663,12 +660,12 @@ section {
   font-family: 'Playfair Display', serif;
   font-weight: 700;
   font-size: 2.5rem;
-  color: var(--dark); /* Replaced with brand dark tone */
+  color: var(--dark);
   margin-top: 5px;
 }
 
 .category-header .main-title span {
-  color: var(--green-deep); /* Replaced with deep brand green */
+  color: var(--green-deep);
 }
 
 .btn-view-all-premium {
@@ -681,7 +678,7 @@ section {
   color: var(--green-deep);
   text-decoration: none;
   font-weight: 500;
-  transition: all var(--transition); /* Replaced with custom brand transition */
+  transition: all var(--transition);
 }
 
 .btn-view-all-premium:hover {
@@ -712,7 +709,7 @@ section {
 
 .tilt-card {
   background: transparent;
-  border-radius: var(--radius); /* Replaced with brand custom radius */
+  border-radius: var(--radius);
   transition: transform 0.15s ease-out;
   transform-style: preserve-3d;
   will-change: transform;
@@ -722,7 +719,7 @@ section {
   position: relative;
   width: 100%;
   height: 340px;
-  border-radius: var(--radius); /* Replaced with brand custom radius */
+  border-radius: var(--radius);
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(17, 26, 15, 0.05);
   transform: translateZ(20px);
@@ -732,7 +729,7 @@ section {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform var(--transition); /* Replaced with custom brand transition */
+  transition: transform var(--transition);
 }
 
 /* Smooth Slide-up Action Overlay */
@@ -746,7 +743,7 @@ section {
   padding-bottom: 24px;
   opacity: 0;
   transform: translateY(15px);
-  transition: all var(--transition); /* Replaced with custom brand transition */
+  transition: all var(--transition);
 }
 
 .action-btn-pill {
@@ -762,7 +759,7 @@ section {
 }
 
 .action-btn-pill:hover {
-  background: var(--gold); /* Replaced with brand accent gold */
+  background: var(--gold);
   color: var(--dark);
   transform: scale(1.05);
 }
@@ -785,7 +782,7 @@ section {
 
 .card-meta-details p {
   font-size: 0.88rem;
-  color: var(--text-muted); /* Replaced with muted brand grey-green */
+  color: var(--text-muted);
   margin: 0;
 }
 
@@ -803,24 +800,13 @@ section {
   color: var(--green-mid);
 }
 
-/* qoufwdeweuofadfywyaevd ywe8wyhfdf */
 
-
-
-
-
-
-
-
-
-
-
-/* ── CATEGORIES ──────────────────────────────── */
+ /* CATEGORIES */
 .categories-section {
     background: #fff;
 }
 
-/* Bundles section styling (replacement for categories) */
+/* Bundles SECTION */
 .ecom-features-section {
     background: #fff;
     padding: 48px 0;
@@ -951,7 +937,7 @@ section {
     color: var(--dark);
 }
 
-/* ── PRODUCTS ────────────────────────────────── */
+/* PRODUCTS */
 .products-section {
     background: var(--cream);
 }
@@ -1111,7 +1097,7 @@ section {
     transform: translateY(-2px);
 }
 
-/* ── BANNER SECTION ──────────────────────────── */
+/* BANNER SECTION */
 .banner-section {
     background: linear-gradient(135deg, #0d3512 0%, #1b6b2a 100%);
     padding: 5rem 0;
@@ -1174,7 +1160,7 @@ section {
     margin: 0;
 }
 
-/* ── TESTIMONIALS ────────────────────────────── */
+/* TESTIMONIALS */
 .testimonials-section {
     background: #fff;
 }
@@ -1246,7 +1232,7 @@ section {
     margin-bottom: 0.8rem;
 }
 
-/* ── STORY SECTION ───────────────────────────── */
+/* STORY SECTION */
 .story-section {
     background: var(--cream);
 }
@@ -1289,7 +1275,7 @@ section {
     color: rgba(17, 26, 15, 0.7);
 }
 
-/* ── INSTAGRAM SECTION ───────────────────────── */
+/* INSTAGRAM SECTION */
 .insta-section {
     background: var(--dark);
     padding: 5rem 0;
@@ -1346,7 +1332,7 @@ section {
     opacity: 1;
 }
 
-/* ── NEWSLETTER ──────────────────────────────── */
+/* NEWSLETTER */
 .newsletter-section {
     background: linear-gradient(135deg, var(--orange) 0%, #c93f0a 100%);
     padding: 4.5rem 0;
@@ -1407,7 +1393,7 @@ section {
     background: var(--green-deep);
 }
 
-/* ── FOOTER ──────────────────────────────────── */
+/* FOOTER */
 footer {
     background: var(--dark);
     color: rgba(255, 255, 255, 0.7);
@@ -1495,7 +1481,7 @@ footer {
     margin: 0;
 }
 
-/* ── CART TOAST ──────────────────────────────── */
+/* CART TOAST */
 .toast-cart {
     position: fixed;
     bottom: 2rem;
@@ -1519,7 +1505,7 @@ footer {
     opacity: 1;
 }
 
-/* ── BACK TO TOP ─────────────────────────────── */
+/* BACK TO TOP */
 .back-to-top {
     position: fixed;
     bottom: 2rem;
@@ -1551,7 +1537,7 @@ footer {
     background: var(--green-mid);
 }
 
-/* ── RESPONSIVE ──────────────────────────────── */
+/* RESPONSIVE */
 @media (max-width: 768px) {
     .hero {
         min-height: auto;
